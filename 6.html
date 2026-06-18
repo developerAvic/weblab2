@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="text">TEXT-GROWING</div>
+    <script>
+      var size = 5;
+      var growing = true;
+      function animateText() {
+        var text = document.getElementById("text");
+        if (growing) {
+          text.innerHTML = "TEXT-GROWING";
+          text.style.color = "red";
+          size++;
+          text.style.fontSize = size + "pt";
+          if (size >= 50) {
+            growing = false;
+          }
+        } else {
+          text.innerHTML = "TEXT-SHRINKING";
+          text.style.color = "green";
+          size--;
+          text.style.fontSize = size + "pt";
+          if (size <= 5) {
+            growing = false;
+          }
+        }
+      }
+      setInterval(animateText, 100);
+    </script>
+  </body>
+</html>
