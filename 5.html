@@ -1,0 +1,66 @@
+prg5
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <form  id="regform">
+        <h2>Registration form</h2>
+        Name: <input type="text" name="name" id="name"><span class="error" id="name_error"></span><br><br>
+        Phone: <input type="text" name="phone" id="phone"><span class="error" id="phone_error"></span><br><br>
+        Email: <input type="email" name="email" id="email"><span class="error" id="email_error"></span><br><br>
+        Password: <input type="password" name="password" id="password"><span class="error" id="password_error"></span><br><br>
+        Confirm_Password: <input type="password" name="confirm_password" id="confirm_password"><span class="error" id="confirmpassword_error"></span><br><br>
+        hobbies: <input type="checkbox" name="hobbies" value="cricket"> Cricket
+        <input type="checkbox" name="hobbies" value="football"> Football
+        <input type="submit" value="Register">
+    </form>
+     <script>
+        document.getElementById("regform").addEventListener("submit",
+        function(e){
+            var valid=true;
+            var error=document.querySelectorAll(".error");
+            for(var i=0;i<error.length;i++){
+                error[i].innerHTML="";
+            }
+            var name=document.getElementById("name").value;
+            if(name===""){
+                document.getElementById("name_error").innerHTML="Name is Missing";
+                valid=false;
+            }
+
+            var email=document.getElementById("email").value;
+            var emailpattern= /$[a-z A-Z]+@+[a-zA-Z]+\.+[a-zA-Z]$/;
+            if(!email.match(emailpattern)){
+                document.getElementById("email_error").innerHTML="email is mismatch";
+                valid=false;
+            }
+
+            var password=document.getElementById("password").value;
+            if(password.length<6){
+                document.getElementById("password_error").innerHTML="password must be at least 6 characters";
+                valid=false;
+            }
+            var confirm_password=document.getElementById("confirm_password").value;
+            if(confirm_password!==password){
+                document.getElementById("confirmpassword_error").innerHTML="password is mismatch";
+                valid=false;
+            }  
+            var phone=document.getElementById("phone").value;
+            var phonepattern=/^[0-9]{10}$/;
+            if(!phone.match(phonepattern)){
+                document.getElementById("phone_error").innerHTML="phone number is mismatch";
+                valid=false;
+            }
+            if(!valid){
+                e.preventDefault();
+            } 
+             }
+            );
+    </script>
+</body>
+</html>
