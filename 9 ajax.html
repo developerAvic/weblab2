@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Demo</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { 
+            font-family: Arial; 
+            margin: 30px; 
+        } 
+        button { 
+            margin: 5px; 
+            padding: 8px; 
+        }
+        div { 
+            margin-top: 10px; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+        }
+    </style>
+</head>
+<body>
+
+    <h2>AJAX Web Page Development</h2>
+    
+    <button onclick="loadTextJS()">Load Text (JavaScript)</button>
+    <button onclick="loadTextJQ()">Load Text (jQuery)</button>
+    <button onclick="loadJSON()">Load JSON (getJSON)</button>
+    <button onclick="parseJSON()">Parse JSON</button>
+
+    <div id="output">Output will appear here...</div>
+
+    <script>
+        // AJAX using plain JavaScript 
+        function loadTextJS() {
+            var xhttp = new XMLHttpRequest(); 
+            
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("output").innerHTML = this.responseText;
+                }
+            };
+            
+            xhttp.open("GET", "data.txt", true); 
+            xhttp.send();
+        }
+
+        // AJAX using jQuery 
+        function loadTextJQ() {
+            $.ajax({
+                url: "data1.txt",
+                success: function(data1) {
+                    $("#output").html(data1);
+                },
+                error: function() {
+                    $("#output").html("Error loading file");
+                }
+            });
+        }
+
+        // Load JSON using getJSON 
+        function loadJSON() {
+            $.getJSON("data.json", function(data) {
+                $("#output").html(
+                    "Name: " + data.name + "<br>" +
+                    "Branch: " + data.branch + "<br>" + 
+                    "College: " + data.college + "<br>" + 
+                    "Year: " + data.year
+                );
+            });
+        }
+
+        // Parse JSON using parseJSON 
+        function parseJSON() {
+            var jsonString = '{"course":"Web Technology","type":"AJAX","duration":"4 weeks"}'; 
+            var obj = $.parseJSON(jsonString);
+
+            $("#output").html(
+                "Course: " + obj.course + "<br>" + 
+                "Type: " + obj.type + "<br>" + 
+                "Duration: " + obj.duration
+            );
+        }
+    </script>
+
+</body>
+</html>
+
+
+data.txt
+Hello from data.txt! This text was loaded using plain JavaScript AJAX.
+
+data1.txt
+Hello from data1.txt! This text was loaded using jQuery AJAX.
+
+data.json
+{
+    "name": "John Doe",
+    "branch": "Computer Science",
+    "college": "XYZ Institute",
+    "year": "3rd Year"
+}
